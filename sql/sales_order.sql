@@ -1,0 +1,31 @@
+select
+asin as sale_order_item_code,
+amazon_order_id as display_order_code,
+promotion_ids as reverse_pickup_code,
+last_updated_date as DeliveryTime,
+price_designation as cod,
+(gmv) as total_price,
+purchase_time as order_date,
+merchant_order_id as sale_order_code,
+order_status as sale_order_status,
+ship_service_level as shipping_package_code,
+purchase_order_number as tracking_number,
+fulfilled_by as facility,
+sku as item_sku_code,
+product_name as item_type_name,
+is_iba as on_hold,
+item_status as sale_order_item_status,
+category as category,
+(item_price) as selling_price,
+dispatch_date as dispatch_date,
+order_channel as  shipping_courier_status,
+sec_sku_id as Bundle_SKU_Code_Number,
+sales_channel as shipping_tracking_status,
+brand_name as channel_name,
+last_updated_time as updated,
+shipping_package_creationdate as Shipping_Package_Creation_Date,
+fulfillment_channel as shipping_package_status_code,
+ship_state as Shipping_Address_State
+from sales_table
+where client_id=xx and channel_id=xx
+order by order_date desc"
