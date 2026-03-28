@@ -12,7 +12,7 @@ us with a straightforward ask — they wanted visibility into
 their Unicommerce data which was being crawled and stored 
 in our internal database. What started as a basic data 
 visibility request turned into a full-scale operational 
-intelligence dashboard once we started digging into what 
+intelligence dashboard once I started digging into what 
 they actually needed to run their business better.
 
 The core problems they were facing:
@@ -49,9 +49,6 @@ up on any given week.
 
 **Day-on-Day Matrix** — A detailed table showing each 
 facility's order status split across individual dates. 
-This was specifically useful when the client wanted to 
-trace back why a particular day had a spike in pending 
-orders.
 
 ---
 
@@ -137,11 +134,6 @@ state — showing item count and average delivery day.
 Filters from the delivery efficiency chart (category, 
 SKU, facility) carry over to this table, making it easy 
 to drill into specific problem areas quickly.
-```dax
-Mismatched SKU = 
-IF(SELECTEDVALUE('Sales Data'[FacilityMatch]) = "Mismatch", 1, 0)
-```
-
 ---
 
 ## Page 3 — Inventory Health & Replenishment Planning
@@ -155,13 +147,6 @@ weighted Average DRR (Daily Run Rate).
 The DRR logic was something the client specifically 
 requested — rather than a simple rolling average, they 
 wanted recent sales to carry more weight:
-```dax
-DRR Max = 
-VAR sale7  = 0.5 * [Last 7 Days Sales DRR]
-VAR sale15 = 0.3 * [Last 15 Days Sales DRR]
-VAR sale30 = 0.2 * [Last 30 Days Sales DRR]
-RETURN sale7 + sale15 + sale30
-```
 
 50% weight on last 7 days, 30% on last 15, 20% on last 
 30 — so the DRR reacts quickly to recent demand spikes 
@@ -187,20 +172,6 @@ that region. This gives a more accurate picture of
 whether the right warehouse actually has enough stock.
 
 The replenishment target is set at 45 days of cover:
-```dax
-Replenish = Avg DRR * 45
-
-Ideal Inventory = 
-VAR a = CALCULATE(
-    MAX('Inventory Data'[Inventory]),
-    FILTER('Sales Data', 
-        'Sales Data'[Facility] = 'Sales Data'[Ideal Facility]
-    )
-)
-RETURN IF(a = BLANK(), 0, a)
-
-Needed = Replenish - Ideal Inventory
-```
 
 Positive Needed = units to be restocked (shown in red)
 Negative Needed = surplus stock (shown in green)
@@ -245,9 +216,10 @@ Power BI Data Model
 
 ## Screenshots
 
-![Page 1 - Sales Order](ss/Page1_sales_orders.png)
+![Page 1 - Sales Order](ss/Page1_sale_orders.png)
 ![Page 2 - Order Dispatch KPIs](ss/Page2_order_dispatch1.png)
 ![Page 2 - Delivery Efficiency & Mismatched SKUs](ss/Page2_order_dispatch2.png)
+![Page 2 - Top 15 SKUs with Delivery Mismatch by State](ss/Page2_order_dispatch3.png)
 ![Page 3 - Inventory Health & Replenishment](ss/Page3_inventory.png)
 
 ---
