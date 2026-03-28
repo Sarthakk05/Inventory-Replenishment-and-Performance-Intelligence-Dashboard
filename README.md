@@ -231,7 +231,3 @@ Core data extraction queries are available in the
 - `sales_order_extraction.sql`
 - `inventory_extraction.sql`  
 - `facility_state_mapping.sql`
-
----
-
-*Data anonymized. Client and product names removed.*
