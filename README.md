@@ -134,7 +134,7 @@ state — showing item count and average delivery day.
 Filters from the delivery efficiency chart (category, 
 SKU, facility) carry over to this table, making it easy 
 to drill into specific problem areas quickly.
----
+
 
 ## Page 3 — Inventory Health & Replenishment Planning
 
